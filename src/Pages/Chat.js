@@ -26,7 +26,7 @@ function Chat() {
   };
   return (
     <div className="w-full h-screen flex flex-col justify-between item-center">
-      <div className="flex gap-10 p-4 px-10 justify-between items-center text-primary">
+      <div className="flex gap-10 p-4 px-10 justify-between items-center text-secondary">
         <h1 className="text-2xl ">
           {" "}
           Welcome{" "}
@@ -34,7 +34,7 @@ function Chat() {
         </h1>
         <button
           onClick={() => dispatch(removeUser())}
-          className="btn btn-outline btn-primary max-w-md"
+          className="btn btn-outline btn-warning max-w-md"
         >
           Log Out
         </button>
@@ -45,7 +45,9 @@ function Chat() {
             <div
               key={item.id}
               className={`flex items-end chat ${
-                item.user === user.value ? "chat-end flex-row-reverse" : "chat-start"
+                item.user === user.value
+                  ? "chat-end flex-row-reverse"
+                  : "chat-start"
               }`}
             >
               <p className="chat-bubble m-1"> {item.text} </p>
@@ -60,17 +62,18 @@ function Chat() {
         )}
       </div>
       <div className="w-screen p-4">
-        <form onSubmit={handleClick} className="flex">
+        <form onSubmit={handleClick} className="flex gap-6">
           <input
             type="text"
             value={newMessage}
             onChange={(e) => setNewMessage(e.target.value)}
-            className="input input-bordered input-primary w-full"
+            className="input input-bordered input-secondary w-full"
+            placeholder="Enter Your Message"
           />
           <input
             type="submit"
             value={"Send Message"}
-            className="btn btn-outline btn-primary max-w-md"
+            className="btn btn-outline btn-secondary max-w-md"
           />
         </form>
       </div>
