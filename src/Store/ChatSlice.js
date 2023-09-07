@@ -1,12 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  query,
-  collection,
-  onSnapshot,
-  doc,
-  orderBy,
-  QuerySnapshot,
-} from "firebase/firestore";
+import { query, collection, onSnapshot, orderBy } from "firebase/firestore";
 import { db } from "../Store/Service/FireBase";
 
 export const chatSlice = createSlice({
@@ -20,22 +13,12 @@ export const chatSlice = createSlice({
 });
 
 export const fetchMessages = () => async (dispatch) => {
-  // const q = query(collection(db, "messages"));
-
-  // const arr = [];
-  // onSnapshot(q, (querySnapshot) => {
-  //   querySnapshot.forEach((doc) => {
-  //     arr.push(doc.data());
-  //   });
-
-  // });
   const q = query(collection(db, "messages"), orderBy("time"));
   onSnapshot(q, (querySnapshot) => {
     const arr = [];
     querySnapshot.forEach((doc) => {
       arr.push(doc.data());
     });
-    // console.log("Current cities in CA: ", cities.join(", "));
     dispatch(setMessages(arr));
   });
 };

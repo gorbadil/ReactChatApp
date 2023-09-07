@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeUser } from "../Store/UserSlice";
 import { fetchMessages } from "../Store/ChatSlice";
-import { addDoc, doc, Timestamp, setDoc, collection } from "firebase/firestore";
+import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { db } from "../Store/Service/FireBase";
 
 function Chat() {
@@ -15,7 +15,7 @@ function Chat() {
   }, [dispatch]);
   const handleClick = async (e) => {
     e.preventDefault();
-    const docRef = await addDoc(collection(db, "messages"), {
+    await addDoc(collection(db, "messages"), {
       text: newMessage,
       user: user.value,
       time: Timestamp.fromDate(new Date()),
