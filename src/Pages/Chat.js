@@ -4,6 +4,7 @@ import { removeUser } from "../Store/UserSlice";
 import { fetchMessages } from "../Store/ChatSlice";
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { db } from "../Store/Service/FireBase";
+import Loading from "../Components/Loading";
 
 function Chat() {
   const [newMessage, setNewMessage] = useState("");
@@ -15,32 +16,64 @@ function Chat() {
   }, [dispatch]);
   const handleClick = async (e) => {
     e.preventDefault();
-    await addDoc(collection(db, "messages"), {
+    const sendObj = {
       text: newMessage,
       user: user.value,
       time: Timestamp.fromDate(new Date()),
-    });
+    };
     setNewMessage("");
+    await addDoc(collection(db, "messages"), sendObj);
   };
-
   return (
-    <div>
-      <h1> {user.value} </h1>
-      <button onClick={() => dispatch(removeUser())}>Log Out</button>
-      {messages.map((item, key) => (
-        <p key={key}>
+    <div className="w-full h-screen flex flex-col justify-between item-center">
+      <div className="flex gap-10 p-4 px-10 justify-between items-center text-primary">
+        <h1 className="text-2xl ">
           {" "}
-          {item.text} {item.user}{" "}
-        </p>
-      ))}
-      <form onSubmit={handleClick}>
-        <input
-          type="text"
-          value={newMessage}
-          onChange={(e) => setNewMessage(e.target.value)}
-        />
-        <input type="submit" value={"Send Message"} />
-      </form>
+          Welcome{" "}
+          <span className="text-neutral-content pl-4">{user.value}</span>{" "}
+        </h1>
+        <button
+          onClick={() => dispatch(removeUser())}
+          className="btn btn-outline btn-primary max-w-md"
+        >
+          Log Out
+        </button>
+      </div>
+      <div className=" bg-gradient-to-r from-slate-300 to-slate-400 h-full">
+        {messages.length > 0 ? (
+          messages.map((item) => (
+            <div
+              key={item.id}
+              className={`flex items-end chat ${
+                item.user === user.value ? "chat-end flex-row-reverse" : "chat-start"
+              }`}
+            >
+              <p className="chat-bubble m-1"> {item.text} </p>
+              <p className="text-base-300 relative bottom-2 text-md">
+                {" "}
+                {item.user}{" "}
+              </p>
+            </div>
+          ))
+        ) : (
+          <Loading />
+        )}
+      </div>
+      <div className="w-screen p-4">
+        <form onSubmit={handleClick} className="flex">
+          <input
+            type="text"
+            value={newMessage}
+            onChange={(e) => setNewMessage(e.target.value)}
+            className="input input-bordered input-primary w-full"
+          />
+          <input
+            type="submit"
+            value={"Send Message"}
+            className="btn btn-outline btn-primary max-w-md"
+          />
+        </form>
+      </div>
     </div>
   );
 }
