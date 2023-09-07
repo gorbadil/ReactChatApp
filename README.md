@@ -60,4 +60,4 @@ Distributed under the MIT License. See `LICENSE` for more information.
 - [React Scroll To Bottom](https://www.npmjs.com/package/react-scroll-to-bottom)
 
 ## Screenshots
-![Chat App](../chat_app/src/Assets/Images/chat-app.png)
+![Chat App](../chat_app/public/chat-app.png)
