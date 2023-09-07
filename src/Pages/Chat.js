@@ -22,7 +22,7 @@ function Chat() {
     });
     setNewMessage("");
   };
-  const deneme = process.env.REACT_APP_DENEME
+
   return (
     <div>
       <h1> {user.value} </h1>
@@ -33,7 +33,6 @@ function Chat() {
           {item.text} {item.user}{" "}
         </p>
       ))}
-      <p> deneme: {deneme} </p>
       <form onSubmit={handleClick}>
         <input
           type="text"
