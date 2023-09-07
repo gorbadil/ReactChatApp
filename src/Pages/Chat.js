@@ -5,6 +5,7 @@ import { fetchMessages } from "../Store/ChatSlice";
 import { addDoc, Timestamp, collection } from "firebase/firestore";
 import { db } from "../Store/Service/FireBase";
 import Loading from "../Components/Loading";
+import ScrollToBottom from "react-scroll-to-bottom";
 
 function Chat() {
   const [newMessage, setNewMessage] = useState("");
@@ -39,12 +40,12 @@ function Chat() {
           Log Out
         </button>
       </div>
-      <div className=" bg-gradient-to-r from-slate-300 to-slate-400 h-full">
+      <ScrollToBottom className=" bg-gradient-to-r from-slate-300 to-slate-400 h-full w-full overflow-auto scroll-smooth">
         {messages.length > 0 ? (
           messages.map((item) => (
             <div
               key={item.id}
-              className={`flex items-end chat ${
+              className={`flex items-end chat mx-4 ${
                 item.user === user.value
                   ? "chat-end flex-row-reverse"
                   : "chat-start"
@@ -60,7 +61,7 @@ function Chat() {
         ) : (
           <Loading />
         )}
-      </div>
+      </ScrollToBottom>
       <div className="w-screen p-4">
         <form onSubmit={handleClick} className="flex gap-6">
           <input
