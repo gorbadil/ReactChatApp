@@ -8,7 +8,7 @@ Chat App with React, Redux, Firebase, and Tailwind CSS.
 
 - No login required
 - Create chat rooms
-- Real-time chat
+- Real-time chat 
 - Scroll to bottom
 
 ## Technologies
